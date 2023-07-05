@@ -1,0 +1,27 @@
+pipeline {
+    agent { label 'slavery-node' }
+    environment {
+        registry = "https://hub.docker.com/repositories/leetd"
+        registryCredential = 'dockerhub'
+    }
+    stages {
+        stage('clone stage') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], browser: github('https://github.com/handuy/nodejs-todolist.git'), extensions: [], userRemoteConfigs: [[url: 'https://github.com/handuy/nodejs-todolist.git']])
+            }
+        }
+        stage('build stage') {
+            steps {
+                sh 'id'
+                script {
+                    def dockerImage = docker.build("leetd/nodejs-todolist:built-by-jenkins-${env.BUILD_ID}")
+                    script {
+                        docker.withRegistry( '', registryCredential ) {
+                            dockerImage.push()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
