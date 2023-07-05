@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh 'id'
                 script {
-                    def dockerImage = docker.build("leetd/nodejs-todolist:built-by-jenkins-${env.BUILD_ID}")
+                    def dockerImage = docker.build("leetd/nodejs-todolist:built-${env.BUILD_ID}")
                     script {
                         docker.withRegistry( '', registryCredential ) {
                             dockerImage.push()
