@@ -3,7 +3,7 @@ pipeline {
     environment {
         // registry = "https://hub.docker.com/repositories/leetd"
         // https://gitlab.com/lytiendung.10/project-01/container_registry
-        registry = "https://gitlab.com/lytiendung.10/project-01/container_registry"
+        // registry = "https://gitlab.com/lytiendung.10/project-01/container_registry"
         registryCredential = 'gitlab-login'
     }
     stages {
@@ -20,7 +20,7 @@ pipeline {
                     // docker build -t registry.gitlab.com/lytiendung.10/project-01 .
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01")
                     script {
-                        docker.withRegistry( '', registryCredential ) {
+                        docker.withRegistry( 'https://registry.gitlab.com', registryCredential ) {
                             dockerImage.push()
                         }
                     }
