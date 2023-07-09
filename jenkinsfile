@@ -4,7 +4,7 @@ pipeline {
         // registry = "https://hub.docker.com/repositories/leetd"
         // https://gitlab.com/lytiendung.10/project-01/container_registry
         registry = "https://gitlab.com/lytiendung.10/project-01/container_registry"
-        registryCredential = 'gitlab'
+        registryCredential = 'gitlab-login'
     }
     stages {
         stage('clone stage') {
