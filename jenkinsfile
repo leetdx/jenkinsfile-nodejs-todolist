@@ -2,8 +2,8 @@ pipeline {
     agent { label 'slavery-node' }
     environment {
         // registry = "https://hub.docker.com/repositories/leetd"
-        registry = "https://gitlab.com"
-        registryCredential = 'api_read_write_registry'
+        registry = "https://registry.gitlab.com"
+        registryCredential = 'gitlab-login'
     }
     stages {
         stage('clone stage') {
