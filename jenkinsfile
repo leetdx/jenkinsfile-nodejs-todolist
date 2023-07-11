@@ -1,21 +1,18 @@
 pipeline {
     agent { label 'slavery-node' }
     environment {
-        // registry = "https://hub.docker.com/repositories/leetd"
         registry = "https://registry.gitlab.com"
         registryCredential = 'gitlab-login'
     }
     stages {
         stage('clone stage') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], browser: github('https://github.com/handuy/nodejs-todolist.git'), extensions: [], userRemoteConfigs: [[url: 'https://github.com/handuy/nodejs-todolist.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'personal-access-token-api', url: 'https://lytiendung.10@gitlab.com/lytiendung.10/project-01.git']])
             }
         }
         stage('build stage') {
             steps {
-                sh 'id'
                 script {
-                    // def dockerImage = docker.build("leetd/nodejs-todolist:built-${env.BUILD_ID}")
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01:built-${env.BUILD_ID}")
                     script {
                         docker.withRegistry( registry, registryCredential ) {
