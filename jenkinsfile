@@ -12,6 +12,7 @@ pipeline {
         }
         stage('build stage') {
             steps {
+                sh 'id'
                 script {
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01:built-${env.BUILD_ID}")
                     script {
