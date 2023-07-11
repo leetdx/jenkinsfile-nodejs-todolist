@@ -1,8 +1,8 @@
 pipeline {
     agent { label 'slavery-node' }
     environment {
-        registry = "https://registry.gitlab.com"
-        registryCredential = 'gitlab-login'
+        registry = 'https://registry.gitlab.com'
+        registryCredential = 'personal-access-token-api'
     }
     stages {
         stage('clone stage') {
