@@ -3,11 +3,13 @@ pipeline {
     environment {
         registry = "https://hub.docker.com/repositories/leetd"
         registryCredential = 'dockerhub'
+        personalAccessToken = 'personal-access-token-api'
     }
     stages {
         stage('clone stage') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], browser: github('https://github.com/handuy/nodejs-todolist.git'), extensions: [], userRemoteConfigs: [[url: 'https://github.com/handuy/nodejs-todolist.git']])
+                // checkout scmGit(branches: [[name: '*/master']], browser: github('https://github.com/handuy/nodejs-todolist.git'), extensions: [], userRemoteConfigs: [[url: 'https://github.com/handuy/nodejs-todolist.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: personalAccessToken, url: 'https://lytiendung.10@gitlab.com/lytiendung.10/project-01.git']])
             }
         }
         stage('build stage') {
