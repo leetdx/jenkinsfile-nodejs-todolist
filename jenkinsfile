@@ -2,13 +2,12 @@ pipeline {
     agent { label 'slavery-node' }
     environment {
         registry = 'https://registry.gitlab.com'
-        registryCredential = 'personal-access-token-api'
-        gitlabLoginCredential = 'gitlab-login'
+        personalAccessToken = 'personal-access-token-api'
     }
     stages {
         stage('clone stage') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'personal-access-token-api', url: 'https://lytiendung.10@gitlab.com/lytiendung.10/project-01.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: personalAccessToken, url: 'https://lytiendung.10@gitlab.com/lytiendung.10/project-01.git']])
             }
         }
         stage('build stage') {
@@ -17,7 +16,7 @@ pipeline {
                 script {
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01:built-${env.BUILD_ID}")
                     script {
-                        docker.withRegistry( registry, gitlabLoginCredential ) {
+                        docker.withRegistry( registry, personalAccessToken ) {
                             dockerImage.push()
                         }
                     }
