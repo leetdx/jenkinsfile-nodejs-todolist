@@ -16,7 +16,7 @@ pipeline {
                 script {
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01:built-${env.BUILD_ID}")
                     script {
-                        docker.withRegistry( "", personalAccessToken ) {
+                        docker.withRegistry( registry, personalAccessToken ) {
                             dockerImage.push()
                         }
                     }
