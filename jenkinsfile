@@ -3,7 +3,7 @@ pipeline {
     environment {
         registry = 'https://registry.gitlab.com'
         personalAccessToken = 'personal-access-token-api'
-        project01AccsessToken = 'gitlab-developer-read-write-container-registry'
+        deployToken = 'gitlab+deploy-token-read-write-registry'
     }
     stages {
         stage('clone stage') {
@@ -16,7 +16,7 @@ pipeline {
                 script {
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01:built-${env.BUILD_ID}")
                     script {
-                        docker.withRegistry( registry, project01AccsessToken ) {
+                        docker.withRegistry( registry, deployToken ) {
                             dockerImage.push()
                         }
                     }
