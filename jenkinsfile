@@ -3,7 +3,7 @@ pipeline {
     environment {
         registry = 'https://registry.gitlab.com'
         personalAccessToken = 'personal-access-token-api'
-        deployToken = 'gitlab+deploy-token-read-write-registry'
+        deployToken = 'deploy-token-read-write-registry'
     }
     stages {
         stage('clone stage') {
