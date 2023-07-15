@@ -12,12 +12,12 @@ pipeline {
         }
         stage('build stage') {
             steps {
-                sh 'id'
-                sh "docker login -u lytiendung.10 -p glpat-NdGneVyHNL6R73VwSBdU ${registry}"
                 script {
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01:built-${env.BUILD_ID}")
                     script {
-                        docker.withRegistry( registry, personalAccessToken ) {
+                        // project-01
+                        // gitlab_developer_read_write_container_registry [glpat-WCpM261Y3iNLRyNjei8t]
+                        docker.withRegistry( registry, 'glpat-WCpM261Y3iNLRyNjei8t' ) {
                             dockerImage.push()
                         }
                     }
@@ -26,15 +26,3 @@ pipeline {
         }
     }
 }
-
-
-// stage ('Push image') {
-//     withCredentials ( [usernamePassword ( credentialsId: 'gitlab-registry-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
-//         def registry_url = "registry.example.com/"
-//         bat "docker login -u $USER -p $PASSWORD ${registry_url}"
-//         docker.withRegistry ("https://${registry_url}", "gitlab-registry-credentials") {
-//             // Push your image now
-//             bat "docker push registry.example.com/group/project/image"
-//         }
-//     }
-// }
