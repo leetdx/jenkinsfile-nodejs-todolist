@@ -13,10 +13,10 @@ pipeline {
         stage('build stage') {
             steps {
                 sh 'id'
+                bat "docker login -u lytiendung.10 -p ${personalAccessToken} ${registry}"
                 script {
                     def dockerImage = docker.build("registry.gitlab.com/lytiendung.10/project-01:built-${env.BUILD_ID}")
                     script {
-                        bat "docker login -u lytiendung.10 -p ${personalAccessToken} ${registry}"
                         docker.withRegistry( registry, personalAccessToken ) {
                             dockerImage.push()
                         }
